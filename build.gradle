@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group 'com.unnamedchess'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.google.guava:guava:29.0-jre")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
