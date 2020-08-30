@@ -37,7 +37,7 @@ public class Knight extends Piece {
                     continue;
                 }
 
-                final Tile candidateDestinationTile = Board.getTile(candidateDestinationCoordinate);
+                final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
                 if (!candidateDestinationTile.isTileOccupied()) {
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
