@@ -9,9 +9,7 @@ import java.util.Collection;
 public abstract class Piece {
 
     protected final int piecePosition;
-
     protected final Alliance pieceAlliance;
-
     protected final boolean isFirstMove;
 
     Piece(final int piecePosition, final Alliance pieceAlliance) {
@@ -33,5 +31,25 @@ public abstract class Piece {
 
     public int getPiecePosition() {
         return this.piecePosition;
+    }
+
+    public enum PieceType {
+        PAWN("P"),
+        KNIGHT("N"),
+        BISHOP("B"),
+        ROOK("R"),
+        QUEEN("Q"),
+        KING("K");
+
+        private String pieceName;
+
+        PieceType(final String pieceName) {
+            this.pieceName = pieceName;
+        }
+
+        @Override
+        public String toString() {
+            return this.pieceName;
+        }
     }
 }
