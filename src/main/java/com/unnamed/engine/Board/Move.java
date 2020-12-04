@@ -266,11 +266,13 @@ public abstract class Move {
 
         final Move decoratedMove;
         final Pawn promotedPawn;
+        final Piece promotedPiece;
 
-        public PawnPromotion(final Move decoratedMove) {
+        public PawnPromotion(final Move decoratedMove, final Piece promotedPiece) {
             super(decoratedMove.getBoard(), decoratedMove.getMovedPiece(), decoratedMove.getDestinationCoordinate());
             this.decoratedMove = decoratedMove;
             this.promotedPawn = (Pawn) decoratedMove.getMovedPiece();
+            this.promotedPiece = promotedPiece;
         }
 
         @Override
