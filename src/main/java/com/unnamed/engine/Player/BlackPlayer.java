@@ -21,6 +21,11 @@ public class BlackPlayer extends Player {
     }
 
     @Override
+    public String toString() {
+        return Alliance.BLACK.toString();
+    }
+
+    @Override
     public Collection<Piece> getActivePieces() {
         return this.board.getBlackPieces();
     }

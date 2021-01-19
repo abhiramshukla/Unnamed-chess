@@ -21,6 +21,11 @@ public class WhitePlayer extends Player {
     }
 
     @Override
+    public String toString() {
+        return Alliance.WHITE.toString();
+    }
+
+    @Override
     public Collection<Piece> getActivePieces() {
         return this.board.getWhitePieces();
     }

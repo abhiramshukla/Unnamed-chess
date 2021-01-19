@@ -18,7 +18,6 @@ public abstract class Piece {
         this.pieceAlliance = pieceAlliance;
         this.piecePosition = piecePosition;
         this.pieceType = pieceType;
-        //TODO first move needs to be fleshed out
         this.isFirstMove = isFirstMove;
         this.cachedHashCode = computeHashCode();
     }
@@ -85,7 +84,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KNIGHT("N", 300) {
+        KNIGHT("N", 320) {
             @Override
             public boolean isKing() {
                 return false;
@@ -96,7 +95,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        BISHOP("B", 300) {
+        BISHOP("B", 350) {
             @Override
             public boolean isKing() {
                 return false;
@@ -129,7 +128,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KING("K", 10000) {
+        KING("K", 20000) {
             @Override
             public boolean isKing() {
                 return true;
@@ -141,8 +140,8 @@ public abstract class Piece {
             }
         };
 
-        private String pieceName;
-        private int pieceValue;
+        private final String pieceName;
+        private final int pieceValue;
 
         PieceType(final String pieceName, final int pieceValue) {
             this.pieceName = pieceName;
