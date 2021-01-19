@@ -5,6 +5,7 @@ import com.unnamed.engine.Board.*;
 import com.unnamed.engine.Pieces.Piece;
 import com.unnamed.engine.Player.ai.MiniMax;
 import com.unnamed.engine.Player.ai.MoveStrategy;
+import com.unnamed.pgn.FenUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -45,8 +46,8 @@ public class Table extends Observable {
     private BoardDirections boardDirections;
     private boolean highlightLegalMoves;
 
-    private final Color lightTileColour = Color.decode("#FECE9E");
-    private final Color darkTileColour = Color.decode("#D48C45");
+    private final Color lightTileColour = Color.decode("#FECE9E");  //FECE9E (Original) //F3EBD7 (Cartoons)
+    private final Color darkTileColour = Color.decode("#D48C45");   //D48C45 (Original) //A37754 (Cartoons)
 
     private final static Table INSTANCE = new Table();
 
@@ -128,6 +129,27 @@ public class Table extends Observable {
             }
         });
         fileMenu.add(openPGN);
+        final JMenuItem openFEN = new JMenuItem("Load from FEN");
+        openFEN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fenString = JOptionPane.showInputDialog("Input FEN");
+                chessBoard = FenUtilities.createGameFromFEN(fenString);
+                Table.get().getBoardPanel().drawBoard(chessBoard);
+            }
+        });
+        fileMenu.add(openFEN);
+        final JMenuItem saveFENItem = new JMenuItem("Save as FEN");
+        saveFENItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextArea fen = new JTextArea();
+                fen.setText(FenUtilities.createFENFromGame(Table.get().getChessBoard()));
+                fen.setEditable(false);
+                JOptionPane.showMessageDialog(Table.get().getBoardPanel(), new JScrollPane(fen), "FEN", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        fileMenu.add(saveFENItem);
         final JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -193,12 +215,10 @@ public class Table extends Observable {
     public static final class TableGameAIWatcher implements Observer {
 
         @Override
-        public void update(Observable o, Object arg) {
+        public void update(final Observable o, final Object arg) {
             if (Table.get().getGameSetup().isAIPlayer(Table.get().getChessBoard().currentPlayer()) &&
                     !Table.get().getChessBoard().currentPlayer().isInCheckMate() &&
                             !Table.get().getChessBoard().currentPlayer().isInStaleMate()) {
-                //TODO --Create an AI thread
-                //Execute AI Work
                 final AIThinkTank thinkTank = new AIThinkTank();
                 thinkTank.execute();
             }
@@ -426,6 +446,9 @@ public class Table extends Observable {
                     final BufferedImage image = ImageIO.read(new File(defaultPieceImagesPath +
                             board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0, 1) +
                             board.getTile(this.tileId).getPiece().toString() + ".png"));
+                    //final ImageIcon imageIcon = new ImageIcon(image);
+                    //final JLabel imageLabel = new JLabel(new ImageIcon(imageIcon.getImage().getScaledInstance(
+                    //        imageIcon.getIconWidth()/7, imageIcon.getIconWidth()/7, Image.SCALE_SMOOTH)));
                     add(new JLabel(new ImageIcon(image)));
                 } catch (IOException e) {
                     e.printStackTrace();

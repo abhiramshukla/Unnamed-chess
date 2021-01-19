@@ -4,12 +4,13 @@ import com.unnamed.engine.Board.Move;
 import com.unnamed.engine.Board.MoveTransition;
 import com.unnamed.engine.Player.ai.MiniMax;
 import com.unnamed.engine.Player.ai.MoveStrategy;
+import com.unnamed.pgn.FenUtilities;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestBoard {
+public class TestAI {
 
     @Test
     public void testAi() {
@@ -50,5 +51,13 @@ public class TestBoard {
                 BoardUtils.getCoordinateAtPosition("h4"));
 
         assertEquals(aiMove, bestMove);
+    }
+
+    @Test
+    public void testMateInThree() {
+        final Board board = FenUtilities.createGameFromFEN("4rr2/5q1p/p7/1pb1P2k/4QBp1/3R4/PP3PPP/4R1K1 w - - 0 1");
+        final MoveStrategy moveStrategy = new MiniMax(4);
+        final Move move = moveStrategy.execute(board);
+        System.out.println(move);
     }
 }
