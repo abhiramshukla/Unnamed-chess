@@ -26,7 +26,7 @@ public class MiniMax implements MoveStrategy{
         int highestSeenValue = Integer.MIN_VALUE;
         int lowestSeenValue = Integer.MAX_VALUE;
         int currentValue;
-        System.out.println(board.currentPlayer() + "Thinking with depth" +this.searchDepth);
+        System.out.println(board.currentPlayer() + " Thinking with depth " +this.searchDepth);
         int numMoves = board.currentPlayer().getLegalMoves().size();
         for (final Move move: board.currentPlayer().getLegalMoves()) {
             final MoveTransition moveTransition = board.currentPlayer().makeMove(move);
